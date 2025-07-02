@@ -1,14 +1,12 @@
 import json
 from myio import ReadLine, Text, Language
-from ai.translator import Translator
-from ai.editor import Editor
 from initialize import Init
 
 
 (translator, editor) = Init()
 
-with open("resources/output_little.json", "w", encoding="utf-8") as outputfile:
-    for line in ReadLine("resources/german_little"):
+with open("resources/output.json", "w", encoding="utf-8") as outputfile:
+    for line in ReadLine("resources/german"):
         original = Text(contents=line, language=Language.GERMAN)
         edited = Text(
             contents=editor.Edit(original.contents, original.language), 
@@ -32,10 +30,3 @@ with open("resources/output_little.json", "w", encoding="utf-8") as outputfile:
         )
 
         json.dump(output, outputfile, ensure_ascii=False)
-
-
-#edited = editor.Edit("Bounour tout le mond", "French")
-#print(edited)
-
-#tanslation = translator.Translate(edited, "French", "English")
-#print(tanslation)
