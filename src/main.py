@@ -5,7 +5,7 @@ from initialize import Init
 
 (translator, editor) = Init()
 
-with open("resources/output.json", "w", encoding="utf-8") as outputfile:
+with open("resources/output.jsonl", "w", encoding="utf-8") as outputfile:
     for line in ReadLine("resources/german"):
         original = Text(contents=line, language=Language.GERMAN)
         edited = Text(
@@ -30,3 +30,4 @@ with open("resources/output.json", "w", encoding="utf-8") as outputfile:
         )
 
         json.dump(output, outputfile, ensure_ascii=False)
+        outputfile.write("\n")
