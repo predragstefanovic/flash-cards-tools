@@ -10,7 +10,8 @@ def load_envs_from_dir(dirpath: str) -> dict[str, str]:
         raise ValueError("Dir path [" + dirpath + "] does not exist encountered while loading env files")
     
     entries = dict()
-    for f in path.iterdir():
+    # Sort the files to ensure a deterministic merge order.
+    for f in sorted(path.iterdir()):
         if f.is_file() and f.name.endswith(".env"):
             d = dotenv_values(dotenv_path=f)      
             if d:
