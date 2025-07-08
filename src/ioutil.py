@@ -1,6 +1,8 @@
 import logging
+from typing import Generator
 
-def read_lines(filepath:str):
+def read_lines(filepath:str) -> Generator[str, None, None]:
+
     try:
         with open(filepath, "r", encoding="utf-8") as fi:
             for line in fi:
