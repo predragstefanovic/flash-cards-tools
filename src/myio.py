@@ -1,6 +1,6 @@
 import logging
 
-def ReadLine(filepath:str):
+def read_lines(filepath:str):
     try:
         with open(filepath, "r", encoding="utf-8") as fi:
             for line in fi:

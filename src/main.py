@@ -1,9 +1,9 @@
 import json
 import argparse
 import logging
-from myio import ReadLine
+from myio import read_lines
 from ai.types import Text, Language
-from initialize import Init
+from initialize import initialize_services
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -13,27 +13,27 @@ def process_flashcards(input_path: str, output_path: str):
     and writes the results to a JSONL output file.
     """
     try:
-        translator, editor = Init()
+        translator, editor = initialize_services()
     except ValueError as e:
         logging.error(f"Initialization failed: {e}")
         return
 
     logging.info(f"Starting flash card processing from '{input_path}' to '{output_path}'.")
     with open(output_path, "w", encoding="utf-8") as outputfile:
-        for line in ReadLine(input_path):
+        for line in read_lines(input_path):
             original = Text(contents=line, language=Language.GERMAN)
 
-            edited = editor.Edit(original)
+            edited = editor.edit(original)
             if not edited:
                 logging.warning(f"Skipping line due to editing error: '{original.contents}'")
                 continue
 
-            english = translator.Translate(edited, Language.ENGLISH)
+            english = translator.translate(edited, Language.ENGLISH)
             if not english:
                 logging.warning(f"Skipping line due to English translation error: '{edited.contents}'")
                 continue
 
-            serbian = translator.Translate(edited, Language.SERBIAN)
+            serbian = translator.translate(edited, Language.SERBIAN)
             if not serbian:
                 logging.warning(f"Skipping line due to Serbian translation error: '{edited.contents}'")
                 continue

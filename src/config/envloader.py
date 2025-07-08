@@ -1,7 +1,7 @@
 from dotenv import dotenv_values
 from pathlib import Path
 
-def LoadEnvsFromDir(dirpath: str) -> dict[str, str]:
+def load_envs_from_dir(dirpath: str) -> dict[str, str]:
     """
     Look up all .env files in the directory, and merge their entries in a single dict
     """

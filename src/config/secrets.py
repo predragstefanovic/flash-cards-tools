@@ -8,7 +8,7 @@ class Secrets:
         self.secrets = entries.copy()
 
 
-    def Get(self, key: SecretKey) -> str:
+    def get(self, key: SecretKey) -> str:
         value = self.secrets.get(key.value)
         if not value:
             raise ValueError("Value is not defined for the secret key [" + key.value + "]")

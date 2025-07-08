@@ -11,14 +11,14 @@ def setup_dummy_secrets() -> Secrets:
 
 def test_get_secret():
     secrets = setup_dummy_secrets()
-    got = secrets.Get(test_key)
+    got = secrets.get(test_key)
     
     assert got == test_value 
 
 def test_missing_secret():
     secrets = Secrets(dict())
     with pytest.raises(ValueError) as exc:
-        secrets.Get(test_key)
+        secrets.get(test_key)
     assert "Value is not defined" in str(exc.value)
     
     

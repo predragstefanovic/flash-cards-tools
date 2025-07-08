@@ -1,9 +1,9 @@
 .venv/**
 __pycache__/
+.pytest_cache/
 *.py[codz]
 *$py.class
 
-# pytest cache
-.pytest_cache/
 
+.vscode/**
 configs/secrets/*

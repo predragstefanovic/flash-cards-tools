@@ -1,6 +1,6 @@
 import pytest
 import tempfile
-from src.config.envloader import LoadEnvsFromDir
+from src.config.envloader import load_envs_from_dir
 
 def test_read_env_file(): 
     basepath = "test/resources"
@@ -14,14 +14,14 @@ def test_read_env_file():
             fp.flush()
             fp.close()
             
-        got = LoadEnvsFromDir(dirpath=dirpath)
+        got = load_envs_from_dir(dirpath=dirpath)
         assert key in got.keys()
         assert str(value) == got[key]
 
 
 def test_dir_does_not_exist():
     with pytest.raises(ValueError) as exc:
-        LoadEnvsFromDir(dirpath="whatever")
+        load_envs_from_dir(dirpath="whatever")
     assert "Dir path" in str(exc.value)
 
 

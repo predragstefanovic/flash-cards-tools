@@ -3,14 +3,15 @@ from ai.editor import Editor
 from ai.openai import OpenAITranslator
 from ai.openai import OpenAIEditor
 from config.secrets import Secrets, SecretKey
-from config.envloader import LoadEnvsFromDir
+from config.envloader import load_envs_from_dir
 
-secrets_dirpath = "configs/secrets"
+SECRETS_DIRPATH = "configs/secrets"
 
-def Init() -> tuple[Translator, Editor]:
-    secrets = Secrets(entries=LoadEnvsFromDir(dirpath=secrets_dirpath))
-    translator = OpenAITranslator(api_key=secrets.Get(SecretKey.OPENAI_API_KEY))
-    editor = OpenAIEditor(api_key=secrets.Get(SecretKey.OPENAI_API_KEY))
+def initialize_services() -> tuple[Translator, Editor]:
+    secrets = Secrets(entries=load_envs_from_dir(dirpath=SECRETS_DIRPATH))
+    api_key = secrets.get(SecretKey.OPENAI_API_KEY)
+    translator = OpenAITranslator(api_key=api_key)
+    editor = OpenAIEditor(api_key=api_key)
 
     return (translator, editor)
 

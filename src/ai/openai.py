@@ -33,7 +33,7 @@ class OpenAITranslator(_OpenAIBase, Translator):
     def __init__(self, api_key: str, model: str = "gpt-4o-mini"):
         super().__init__(api_key=api_key, model=model)
 
-    def Translate(self, original_text: Text, target_lang: Language) -> Text | None:
+    def translate(self, original_text: Text, target_lang: Language) -> Text | None:
         system_prompt = (
             f"You are a highly accurate translation engine. "
             f"Translate from {original_text.language.value} to {target_lang.value}. "
@@ -49,7 +49,7 @@ class OpenAIEditor(_OpenAIBase, Editor):
     def __init__(self, api_key: str, model: str = "gpt-4o-mini"):
         super().__init__(api_key=api_key, model=model)
 
-    def Edit(self, original_text: Text) -> Text | None:
+    def edit(self, original_text: Text) -> Text | None:
         system_prompt = (
             f"You are a highly accurate proofreader and editor for {original_text.language.value} language. "
             f"Adjust the text to fix the typos and grammatical errors. "
