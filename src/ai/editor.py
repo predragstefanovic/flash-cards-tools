@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
+from ai.types import Text
 
-class Editor:
+
+class Editor(ABC):
     @abstractmethod
-    def Edit(self, text: str, lang: str) -> str:
-        """
-        Edit the text to correct typos, grammatical errors and obvious stylistic issues
-        """
+    def Edit(self, original_text: Text) -> Text | None:
+        """Edits and proofreads text in a given language."""
         pass

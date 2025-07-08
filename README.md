@@ -20,4 +20,4 @@ German Sentence -> Edits German -> Translates German to English
 ```
 
 Runs for about 400 sentences and 1800 words with chatgpt4.1-nano, totalling ~1 cent in costs.
-Note, it takes several minutes to run and without any tolarance to transient errors, the pipeline runs all or nothing.
+Note, it takes several minutes to run. It will skip sentences that failed due to transient errors.

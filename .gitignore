@@ -3,4 +3,7 @@ __pycache__/
 *.py[codz]
 *$py.class
 
-configs/secrets/**
+# pytest cache
+.pytest_cache/
+
+configs/secrets/*

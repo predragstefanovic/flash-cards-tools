@@ -1,33 +1,56 @@
 import json
-from myio import ReadLine, Text, Language
+import argparse
+import logging
+from myio import ReadLine
+from ai.types import Text, Language
 from initialize import Init
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-(translator, editor) = Init()
+def process_flashcards(input_path: str, output_path: str):
+    """
+    Reads sentences from an input file, edits them, translates them,
+    and writes the results to a JSONL output file.
+    """
+    try:
+        translator, editor = Init()
+    except ValueError as e:
+        logging.error(f"Initialization failed: {e}")
+        return
 
-with open("resources/output.jsonl", "w", encoding="utf-8") as outputfile:
-    for line in ReadLine("resources/german"):
-        original = Text(contents=line, language=Language.GERMAN)
-        edited = Text(
-            contents=editor.Edit(original.contents, original.language), 
-            language=original.language
-        )
+    logging.info(f"Starting flash card processing from '{input_path}' to '{output_path}'.")
+    with open(output_path, "w", encoding="utf-8") as outputfile:
+        for line in ReadLine(input_path):
+            original = Text(contents=line, language=Language.GERMAN)
 
-        english = Text(
-            contents=translator.Translate(edited.contents, edited.language,  Language.ENGLISH),
-            language=Language.ENGLISH
-        )
-        
-        serbian = Text(
-            contents=translator.Translate(edited.contents, edited.language, Language.SERBIAN),
-            language=Language.SERBIAN
-        )
+            edited = editor.Edit(original)
+            if not edited:
+                logging.warning(f"Skipping line due to editing error: '{original.contents}'")
+                continue
 
-        output = dict(
-            original=original._asdict(),
-            edited=edited._asdict(),
-            translations=[english._asdict(), serbian._asdict()]
-        )
+            english = translator.Translate(edited, Language.ENGLISH)
+            if not english:
+                logging.warning(f"Skipping line due to English translation error: '{edited.contents}'")
+                continue
 
-        json.dump(output, outputfile, ensure_ascii=False)
-        outputfile.write("\n")
+            serbian = translator.Translate(edited, Language.SERBIAN)
+            if not serbian:
+                logging.warning(f"Skipping line due to Serbian translation error: '{edited.contents}'")
+                continue
+
+            output = dict(
+                original=original._asdict(),
+                edited=edited._asdict(),
+                translations=[english._asdict(), serbian._asdict()]
+            )
+
+            json.dump(output, outputfile, ensure_ascii=False)
+            outputfile.write("\n")
+    logging.info("Processing complete.")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Process text notes to create flashcards.")
+    parser.add_argument("-i", "--input", default="resources/german", help="Path to the input file with sentences.")
+    parser.add_argument("-o", "--output", default="resources/output.jsonl", help="Path to the output JSONL file.")
+    args = parser.parse_args()
+    process_flashcards(args.input, args.output)

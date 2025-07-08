@@ -1,16 +1,11 @@
-from typing import NamedTuple
-from enum import Enum
-
-class Language(str, Enum):
-    GERMAN = "German"
-    ENGLISH = "English"
-    SERBIAN = "Serbian"
-
-class Text(NamedTuple):
-    contents: str
-    language: Language
+import logging
 
 def ReadLine(filepath:str):
-    with open(filepath) as fi:
-        for line in fi:
-            yield line.strip()
+    try:
+        with open(filepath, "r", encoding="utf-8") as fi:
+            for line in fi:
+                yield line.strip()
+    except FileNotFoundError:
+        logging.error(f"Input file not found at '{filepath}'")
+        # This will cause the generator to stop immediately
+        return
