@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
-from src.ai.openai import OpenAITranslator, OpenAIEditor
-from src.ai.types import Text, Language
+from ai.openai import OpenAITranslator, OpenAIEditor
+from ai.types import Text, Language
 
 @pytest.fixture
 def mock_openai_client() -> MagicMock:

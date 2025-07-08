@@ -1,8 +1,8 @@
 import openai
 import logging
-from src.ai.types import Language, Text
-from src.ai.translator import Translator
-from src.ai.editor import Editor
+from ai.types import Language, Text
+from ai.translator import Translator
+from ai.editor import Editor
 
 
 class _OpenAIBase:

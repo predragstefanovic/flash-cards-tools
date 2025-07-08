@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.ai.types import Language, Text
+from ai.types import Language, Text
 
 
 class Translator(ABC):

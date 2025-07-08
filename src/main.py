@@ -2,7 +2,7 @@ import json
 import argparse
 import logging
 from ioutil import read_lines
-from src.ai.types import Text, Language
+from ai.types import Text, Language
 from initialize import initialize_services
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

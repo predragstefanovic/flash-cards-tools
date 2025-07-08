@@ -1,10 +1,10 @@
 from openai import OpenAI
-from src.ai.translator import Translator
-from src.ai.editor import Editor
-from src.ai.openai import OpenAITranslator
-from src.ai.openai import OpenAIEditor
-from src.config.secrets import Secrets, SecretKey
-from src.config.envloader import load_envs_from_dir
+from ai.translator import Translator
+from ai.editor import Editor
+from ai.openai import OpenAITranslator
+from ai.openai import OpenAIEditor
+from config.secrets import Secrets, SecretKey
+from config.envloader import load_envs_from_dir
 
 SECRETS_DIRPATH = "configs/secrets"
 

@@ -17,7 +17,7 @@ test:
 	$(PYTEST) tests/
 
 run:
-	$(PYTHON) src/main.py
+	$(PYTHON) -m src.main
 
 clean:
 	rm -rf $(VENV_DIR)

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.ai.types import Text
+from ai.types import Text
 
 
 class Editor(ABC):
