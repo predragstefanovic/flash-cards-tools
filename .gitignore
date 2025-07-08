@@ -7,3 +7,7 @@ __pycache__/
 
 .vscode/**
 configs/secrets/*
+
+# Coverage reports
+htmlcov/
+.coverage
